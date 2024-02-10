@@ -1,0 +1,163 @@
+@import url('https://fonts.cdnfonts.com/css/Inter');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Inter;    
+    background: rgb(245, 245, 245);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:  20px;
+}
+/* ------------------header------------------------------ */
+.title{
+    color: rgb(0, 0, 0);   ;
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 70px;
+    letter-spacing: 0%;
+    text-align: center;
+    margin: 80px auto 33px;
+    }
+/* -----------------------------main--------------------------------- */
+.main{
+    border-radius: 16px;
+    box-shadow: 0px 8px 35px 0px rgba(0, 0, 0, 0.16);
+    background: rgb(255, 255, 255);
+
+    margin: 0 auto; 
+}
+.container{
+    width: 100%;
+    max-width: 594px;
+    padding: 24px 24px 18px 24px;
+   
+}
+.form{
+    display: flex;
+    justify-content: space-between;
+    gap:24px
+   
+   
+}
+.form__input{ 
+    width: 100%;
+    max-width: 356px;
+    border: 1px solid rgb(206, 212, 218);
+    border-radius: 4px;
+    background: rgb(255, 255, 255);
+    padding: 9px 31px 8px 13px;
+
+    color: rgb(84, 89, 94);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+ 
+  
+}
+.form__btn{
+    border-radius: 4px;
+    background: rgb(39, 40, 41);
+    padding: 10px 16px 10px 16px;
+    max-width: 142px; 
+
+    color: rgb(255, 255, 255);   
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0%;
+    text-align: center;
+    transition: all 0.6s ease;
+}
+.form__btn:hover{   
+    transform: scale(1.05);
+    cursor: pointer;
+    
+}
+.line{
+    width: 100%;
+    max-width: 594px;
+    height: 1px;
+    box-sizing: border-box;
+    /* background: rgb(255, 255, 255); */
+   background: rgb(68, 69, 70);
+   opacity: 0.7;
+    margin: 0 auto;
+}
+.field-chek{
+    display: flex;
+    justify-content: space-between;
+    
+   
+    
+}
+.label{
+    margin-bottom: 24px;
+
+    color: rgb(84, 89, 94);    
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+
+}
+.check{
+    margin-right: 10px;
+    border: 1px solid rgb(107, 110, 113);
+    border-radius: 2px;    
+}
+.delete_item{
+    display: block;
+}
+/* .label::after{
+    content:"❌";
+    padding-left: 20px;
+
+} */
+/* ------------------------------main buttom---------------------------- */
+.wrap__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 18px 24px;
+
+    border-radius: 0px 0px 16px 16px;
+    background: rgb(245, 245, 245);
+}
+.button {
+    padding: 10px 16px;
+    color: rgb(255, 255, 255);   
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19px;
+    letter-spacing: 0%;
+    text-align: center;
+    border-radius: 4px;
+    border: 0;
+    transition: all 0.3s ease;
+}
+.grey {
+    background: rgb(108, 117, 125);
+   
+}
+
+.red {
+    background: rgb(220, 53, 69);
+  
+}
+
+button:hover{
+    background: rgb(39, 40, 41);
+    cursor: pointer;
+    
+}
