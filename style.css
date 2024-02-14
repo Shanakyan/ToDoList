@@ -13,6 +13,7 @@ body{
     justify-content: center;
     padding:  20px;
 }
+
 /* ------------------header------------------------------ */
 .title{
     color: rgb(0, 0, 0);   ;
@@ -28,22 +29,22 @@ body{
     border-radius: 16px;
     box-shadow: 0px 8px 35px 0px rgba(0, 0, 0, 0.16);
     background: rgb(255, 255, 255);
-
+    
+    width: 100%;
+    max-width: 596px;   
     margin: 0 auto; 
 }
 .container{
     width: 100%;
     max-width: 594px;
-    padding: 24px 24px 18px 24px;
-   
+    padding: 24px 24px 0px 24px;   
 }
 .form{
     display: flex;
     justify-content: space-between;
-    gap:24px
+    gap:24px; 
    
-   
-}
+   }
 .form__input{ 
     width: 100%;
     max-width: 356px;
@@ -57,9 +58,10 @@ body{
     font-size: 16px;
     font-weight: 400;
     line-height: 21px;
- 
-  
-}
+  }
+  .form__input:focus{
+    outline-color: rgb(220, 53, 69);;
+  }
 .form__btn{
     border-radius: 4px;
     background: rgb(39, 40, 41);
@@ -76,15 +78,13 @@ body{
 }
 .form__btn:hover{   
     transform: scale(1.05);
-    cursor: pointer;
-    
+    cursor: pointer;    
 }
 .line{
     width: 100%;
     max-width: 594px;
     height: 1px;
-    box-sizing: border-box;
-    /* background: rgb(255, 255, 255); */
+    box-sizing: border-box;  
    background: rgb(68, 69, 70);
    opacity: 0.7;
     margin: 0 auto;
@@ -92,9 +92,7 @@ body{
 .field-chek{
     display: flex;
     justify-content: space-between;
-    
-   
-    
+    cursor: pointer;
 }
 .label{
     margin-bottom: 24px;
@@ -108,22 +106,33 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
-
+    cursor: pointer;  
+    padding-left: 2.2em; /*сдвинула инпут для checkbox*/  
 }
-.check{
-    margin-right: 10px;
-    border: 1px solid rgb(107, 110, 113);
-    border-radius: 2px;    
+.check{   
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip:rect(0 0 0 0);    
+}
+.check_box{
+    position: absolute;   
+    width:1.5em;
+    height: 1.5em;
+    background-image: url("./checkbox.svg");
+    margin-left: -2.2em;
+}
+.checked{
+    position: absolute;
+    width: 1.5em;
+    height: 1.55em;
+    margin-left: -2.2em;
+    background-image: url("./cheched.svg");    
 }
 .delete_item{
     display: block;
 }
-/* .label::after{
-    content:"❌";
-    padding-left: 20px;
-
-} */
 /* ------------------------------main buttom---------------------------- */
 .wrap__buttons {
     display: flex;
@@ -146,18 +155,21 @@ body{
     border: 0;
     transition: all 0.3s ease;
 }
+button:hover{
+    background: rgb(39, 40, 41);    
+    cursor: pointer;    
+}
 .grey {
-    background: rgb(108, 117, 125);
-   
+    background: rgb(108, 117, 125);   
 }
 
 .red {
-    background: rgb(220, 53, 69);
-  
+    background: rgb(220, 53, 69);  
+}
+.d-none{
+    display: none;
+}
+.linethrough{
+    text-decoration: line-through;
 }
 
-button:hover{
-    background: rgb(39, 40, 41);
-    cursor: pointer;
-    
-}
