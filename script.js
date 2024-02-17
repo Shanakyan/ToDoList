@@ -6,9 +6,6 @@ let addBtn = document.querySelector("#add");
 let check = 0; //счетчик чекбоксов
 const main = document.querySelector("#list");
 
-
-
-let line = document.querySelector(".line")
 let buttons = document.querySelector(".wrap__buttons")
 // ф-я делает заглавной первую букву элемента в списке
 let firstUpperLetter = (str) => str.split('')[0].toUpperCase()+str.slice(1);
@@ -32,6 +29,8 @@ function  createList(str){
     input.setAttribute("name",`${check}`);
     const span =  document.createElement("span");
     span.classList.add("check_box");
+   
+   
     let checked = document.querySelector(".ckeck_box")
 
 
@@ -46,35 +45,45 @@ function  createList(str){
     label.prepend(span)
     list.append(deleteItem);
 
-    // list.createElement("div")
-
     //зачеркивание выбранного элемента
-    label.addEventListener("click",function(e){                    
-    label.classList.add("linethrough"); 
-    span.classList.remove("check_box")   
-    span.classList.add("checked")
- 
+    label.addEventListener("click",function(e){  
+        // if(input.checked) 
+        // {                 
+        // label.classList.add("linethrough"); 
+        // span.classList.remove("check_box")   
+        // span.classList.toggle("checked")
+        // }
+        // else
+        // label.classList.remove("linethrough"); 
+        // span.classList.add("check_box")  
+        if(input.checked)
+        {
+        label.classList.toggle("linethrough");
+        span.classList.toggle("check_box")
+        span.classList.toggle("checked")
+         }
     }) 
-    //удаление выбранного элемента при нажатии кнопку "Удалить завершенные"
-    deleteItem.addEventListener("click", function(e){
-    
-        arr.splice(arr.indexOf(label.textContent),1)
-        LS.removeItem("task".arr);
-        LS.setItem("task",arr)
 
+    //удаление выбранного элемента при нажатии кнопку "Удалить завершенные"
+    deleteItem.addEventListener("click", function(e){  
+ 
+        arr.splice(arr.indexOf(label.textContent),1) // убираю из массива по индексу  списка   нужный элемент 
+        // LS.removeItem("task".arr); // удаление  хранилище
+        LS.setItem("task",arr) // запись хранилище  уже без этого эл-а
+// console.log(arr);
        list.remove() ;
     }) 
+  
     //удаление выбранного элемента с помощью крестика 
-    greyBtn.addEventListener("click", function(e){
-        // LS.get.Item("task"); 
-        if(input.checked) {
-            arr.splice(arr.indexOf(label.textContent),1)
-            LS.removeItem("task".arr)         
-            
-            LS.setItem("task",arr)
-                      
-        list.remove(); 
-        }
+    greyBtn.addEventListener("click", function(e){ 
+              
+        if(input.checked) {       
+        // // удаление элемента списка
+         list.remove();  //
+        //  console.log("+++");              
+     } 
+     
+
     })    
 }
 form.addEventListener("submit",function(e){
@@ -87,9 +96,9 @@ form.addEventListener("submit",function(e){
         arr.push(formInput.value);
         LS.setItem("task", arr);
         formInput.value='';
-        // line.classList.remove("d-none");      
+            
     }
-
+ 
 })
 
     // ф-я добавляет список элементов
@@ -113,12 +122,20 @@ form.addEventListener("submit",function(e){
 redBtn.addEventListener("click", function(e){
     LS.removeItem("task");
     buttons.classList.add("d-none")
-    main.innerText = '';   
-    // list.innerHTML = "";
-    formInput.value = '';   
+    main.innerText = ''; 
+    formInput.value = '';
+
 })
 
-
+if(LS.task){
+    let storage = LS.task.split(",")
+    arr.push(...storage)
+    for(let el of storage){
+        createList(el);       
+        buttons.classList.remove("d-none")  
+    }
+  
+}
 // ввод инпута при нажатии кнопки "Добавить" 
 // addBtn.addEventListener("click", function(e){   
    
@@ -133,15 +150,8 @@ redBtn.addEventListener("click", function(e){
 //        formInput.value='';      
 // })
 
-if(LS.task){
-    let storage = LS.task.split(",")
-    arr.push(...storage)
-    for(let el of storage){
-        createList(el);       
-        buttons.classList.remove("d-none")  
-    }
-  
-}
+
+
 
 
 

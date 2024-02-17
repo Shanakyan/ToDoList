@@ -120,11 +120,14 @@ body{
     position: absolute;   
     width:1.5em;
     height: 1.5em;
+    
     background-image: url("./checkbox.svg");
     margin-left: -2.2em;
 }
 .checked{
     position: absolute;
+    text-decoration: line-through;
+
     width: 1.5em;
     height: 1.55em;
     margin-left: -2.2em;
