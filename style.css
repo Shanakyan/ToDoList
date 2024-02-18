@@ -63,10 +63,12 @@ body{
     outline-color: rgb(220, 53, 69);;
   }
 .form__btn{
+    border: none;
     border-radius: 4px;
     background: rgb(39, 40, 41);
     padding: 10px 16px 10px 16px;
-    max-width: 142px; 
+    width: 100%;
+    max-width: 166px; 
 
     color: rgb(255, 255, 255);   
     font-size: 16px;
@@ -126,8 +128,6 @@ body{
 }
 .checked{
     position: absolute;
-    text-decoration: line-through;
-
     width: 1.5em;
     height: 1.55em;
     margin-left: -2.2em;

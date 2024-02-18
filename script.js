@@ -10,9 +10,17 @@ let buttons = document.querySelector(".wrap__buttons")
 // ф-я делает заглавной первую букву элемента в списке
 let firstUpperLetter = (str) => str.split('')[0].toUpperCase()+str.slice(1);
  let LS = window.localStorage;
-let arr = [];  
+let arr = []; 
+ // удаляет  кнопки и пустой массив 
+function del(){
+    if(arr.length===0){
+        LS.clear()
+        buttons.classList.add("d-none")
+    }
+}
 // ф-я создает элемент списка
-function  createList(str){ 
+function  createList(str, chek){ 
+    // let firstUpperLetter = (str) => str.split('')[0].toUpperCase()+str.slice(1);
     check++;
     const label = document.createElement("label")
     label.setAttribute("for",`${check}`);
@@ -26,14 +34,13 @@ function  createList(str){
     input.setAttribute("type","checkbox");
     input.setAttribute("id",`${check}`);
     input.classList.add("check");
+   
+    label.classList.add(`${chek}`);//при выборе чекбокса добавляется класс зачеркивания ("linethrough")
     input.setAttribute("name",`${check}`);
+  
     const span =  document.createElement("span");
-    span.classList.add("check_box");
-   
-   
-    let checked = document.querySelector(".ckeck_box")
-
-
+    span.classList.add(chek ? "checked" : "check_box");  
+    // let checked = document.querySelector(".ckeck_box")
     const deleteItem = document.createElement("div");
     deleteItem.classList.add("delete_item")
     deleteItem.innerText = "❌";
@@ -45,113 +52,82 @@ function  createList(str){
     label.prepend(span)
     list.append(deleteItem);
 
-    //зачеркивание выбранного элемента
-    label.addEventListener("click",function(e){  
-        // if(input.checked) 
-        // {                 
-        // label.classList.add("linethrough"); 
-        // span.classList.remove("check_box")   
-        // span.classList.toggle("checked")
-        // }
-        // else
-        // label.classList.remove("linethrough"); 
-        // span.classList.add("check_box")  
+    function checking(e){  
+ 
         if(input.checked)
         {
         label.classList.toggle("linethrough");
         span.classList.toggle("check_box")
-        span.classList.toggle("checked")
-         }
-    }) 
-
-    //удаление выбранного элемента при нажатии кнопку "Удалить завершенные"
-    deleteItem.addEventListener("click", function(e){  
+        span.classList.toggle("checked")     
+      
+        let textItem  = label.innerText;   
+        let x = arr.findIndex(item => item.text === textItem.toLowerCase());
+        //  console.log(x);
+        arr[x].chek = arr[x].chek ? false : 'linethrough';     
+         LS.setItem("task",JSON.stringify(arr))
+        }         
+    }
+    label.addEventListener("click", checking)
+    
+    function delList(e){ 
  
-        arr.splice(arr.indexOf(label.textContent),1) // убираю из массива по индексу  списка   нужный элемент 
-        // LS.removeItem("task".arr); // удаление  хранилище
-        LS.setItem("task",arr) // запись хранилище  уже без этого эл-а
-// console.log(arr);
+        arr.splice(arr.findIndex(item => item.text === label.textContent.toLowerCase()),1)// находим нужный объект по ключу и извлекаем из массива 
+        LS.setItem("task",JSON.stringify(arr)) // запись хранилище  уже без этого эл-а
+        // console.log(arr);
        list.remove() ;
-    }) 
-  
+       del();// удаляет  кнопки и пустой массив 
+    }
+     deleteItem.addEventListener("click", delList)     
+    
     //удаление выбранного элемента с помощью крестика 
     greyBtn.addEventListener("click", function(e){ 
-              
-        if(input.checked) {       
-        // // удаление элемента списка
-         list.remove();  //
-        //  console.log("+++");              
-     } 
-     
-
-    })    
+        //  const  target = e.target;    
+        if(input.checked || chek === "linethrough"){
+            list.remove()
+       arr = arr.filter(el => el.chek === false)
+          LS.setItem("task",JSON.stringify(arr))
+        }
+        del();// удаляет  кнопки и пустой массив 
+    })  
 }
 form.addEventListener("submit",function(e){
-    if(formInput.value=='' ){
-           formInput.value='' 
-           }
-     else {
-        e.preventDefault();  buttons.classList.remove("d-none")
-        createList(formInput.value);       
-        arr.push(formInput.value);
-        LS.setItem("task", arr);
-        formInput.value='';
-            
-    }
- 
+    e.preventDefault(); 
+    if(formInput.value)
+    {
+        let objLS = {
+            text:formInput.value,
+            chek:false,
+        }
+        buttons.classList.remove("d-none");
+
+        arr.push(objLS);
+        LS.setItem("task", JSON.stringify(arr));      
+        createList(formInput.value);         
+        formInput.value='' ;
+    } 
+    else
+    {
+        formInput.value='' ;
+     }   
 })
 
-    // ф-я добавляет список элементов
-// function addList(e){
-//         let key = e.key || String.fromCharCode(e.Code);
-//         if (key === 'Enter' ) {  
-//             e.preventDefault() ;
-//             // line.classList.remove("d-none");
-//             buttons.classList.remove("d-none")
-//         createList(formInput.value);       
-//         arr.push(formInput.value)
-//         LS.setItem("task", arr)
-//         // formInput.value='';   
-//         }
-// }
-
-// при вводе инпута в список добавляется новый элемент
-// formInput.addEventListener('keypress',addList);
-
 // кнопка "Удалить все" убирает весь список
-redBtn.addEventListener("click", function(e){
-    LS.removeItem("task");
+redBtn.addEventListener("click", function(e){   
+    LS.clear()
+    arr=[];
     buttons.classList.add("d-none")
     main.innerText = ''; 
     formInput.value = '';
-
 })
 
-if(LS.task){
-    let storage = LS.task.split(",")
-    arr.push(...storage)
-    for(let el of storage){
-        createList(el);       
+if(LS.getItem("task")){ 
+    arr =  JSON.parse( LS.getItem("task")) 
+    for(let el of arr){
+        createList(el.text, el.chek);       
         buttons.classList.remove("d-none")  
     }
   
 }
-// ввод инпута при нажатии кнопки "Добавить" 
-// addBtn.addEventListener("click", function(e){   
-   
-//     e.preventDefault() ;
-//    if(formInput.value=='' ){
-//    formInput.value='' 
-//    }
-//    else  
-// //    arr.push(formInput.value)
-// //    LS.setItem("task", arr)      
-//        createList(formInput.value);
-//        formInput.value='';      
-// })
-
-
-
 
 
 
